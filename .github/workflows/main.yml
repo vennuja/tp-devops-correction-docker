@@ -24,13 +24,12 @@ jobs:
         run: mvn clean verify --file ./simple-api/pom.xml
 
       - name: SonarCloud analysis
-        run: |
-         cd simple-api
-         mvn -B verify sonar:sonar \
+        run: mvn -B verify sonar:sonar \
            -Dsonar.projectKey=vennuja_tp-devops-correction-docker \
            -Dsonar.organization=vennuja \
            -Dsonar.host.url=https://sonarcloud.io \
            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        working-directory: simple-api
 
   build-and-push-docker-image:
     needs: test-backend
