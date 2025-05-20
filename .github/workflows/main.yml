@@ -24,13 +24,13 @@ jobs:
         run: mvn clean verify --file ./simple-api/pom.xml
 
       - name: SonarCloud analysis
-        run: mvn -B verify sonar:sonar \
-          -Dsonar.projectKey=vennuja_tp-devops-correction-docker \
-          -Dsonar.organization=vennuja \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          --file ./simple-api/pom.xml
-
+        run: |
+         cd simple-api
+         mvn -B verify sonar:sonar \
+           -Dsonar.projectKey=vennuja_tp-devops-correction-docker \
+           -Dsonar.organization=vennuja \
+           -Dsonar.host.url=https://sonarcloud.io \
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
   build-and-push-docker-image:
     needs: test-backend
