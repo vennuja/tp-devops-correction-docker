@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy_ansible
-          chmod 600 ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_deploy_ansible
           ssh-keyscan siyambalapitiya.desilva.takima.cloud >> ~/.ssh/known_hosts
 
       - name: Install Ansible
