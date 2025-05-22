@@ -1,0 +1,33 @@
+name: CD Deployment
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    name: Deploy backend via Ansible
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan siyambalapitiya.desilva.takima.cloud >> ~/.ssh/known_hosts
+
+      - name: Install Ansible
+        run: |
+          sudo apt update
+          sudo apt install -y ansible
+
+      - name: Run Ansible playbook
+        run: |
+          ansible-playbook -i TP3/my-project/ansible/inventories/setup.yml TP3/my-project/ansible/playbook.yml
+
+
