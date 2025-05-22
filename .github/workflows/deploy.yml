@@ -17,7 +17,7 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_deploy_ansible
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan siyambalapitiya.desilva.takima.cloud >> ~/.ssh/known_hosts
 
